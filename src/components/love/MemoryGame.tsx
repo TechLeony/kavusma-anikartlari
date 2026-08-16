@@ -24,7 +24,8 @@ export function MemoryGame({ onWin }: { onWin: () => void }) {
 
   useEffect(() => {
     if (flipped.length !== 2) return;
-    const [a, b] = flipped;
+    const a = flipped[0]!;
+    const b = flipped[1]!;
     const cardA = cards.find((c) => c.id === a);
     const cardB = cards.find((c) => c.id === b);
     const id = window.setTimeout(() => {
@@ -38,10 +39,9 @@ export function MemoryGame({ onWin }: { onWin: () => void }) {
   }, [flipped, cards]);
 
   useEffect(() => {
-    if (cards.length > 0 && matched.length === cards.length) {
-      const id = window.setTimeout(onWin, 500);
-      return () => clearTimeout(id);
-    }
+    if (cards.length === 0 || matched.length !== cards.length) return;
+    const id = window.setTimeout(onWin, 500);
+    return () => clearTimeout(id);
   }, [matched, cards, onWin]);
 
   const reset = () => {
@@ -70,7 +70,7 @@ export function MemoryGame({ onWin }: { onWin: () => void }) {
       <div className="mt-4 grid grid-cols-4 gap-2 sm:gap-3">
         {cards.map((card) => {
           const isOpen = flipped.includes(card.id) || matched.includes(card.id);
-          const Icon = ICONS[card.icon];
+          const Icon = ICONS[card.icon] ?? Heart;
           return (
             <motion.button
               key={card.id}
