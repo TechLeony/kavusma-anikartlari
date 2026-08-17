@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import { Play } from "lucide-react";
 
 type Balloon = { id: number; x: number; duration: number; size: number; color: string };
@@ -22,22 +22,25 @@ export function BalloonGame({ onWin }: { onWin: () => void }) {
   const counter = useRef(0);
   const won = useRef(false);
 
+  const createBalloon = () => {
+    counter.current += 1;
+    const b: Balloon = {
+      id: counter.current,
+      x: 6 + Math.random() * 82,
+      duration: 4.2 + Math.random() * 2,
+      size: 30 + Math.random() * 22,
+      color: BALLOON_COLORS[Math.floor(Math.random() * BALLOON_COLORS.length)] ?? "#fbcfe8",
+    };
+    setBalloons((prev) => [...prev, b]);
+    window.setTimeout(() => {
+      setBalloons((prev) => prev.filter((p) => p.id !== b.id));
+    }, b.duration * 1000);
+  };
+
   useEffect(() => {
     if (!running) return;
-    const id = setInterval(() => {
-      counter.current += 1;
-      const b: Balloon = {
-        id: counter.current,
-        x: 6 + Math.random() * 82,
-        duration: 3.6 + Math.random() * 2.4,
-        size: 30 + Math.random() * 22,
-        color: BALLOON_COLORS[Math.floor(Math.random() * BALLOON_COLORS.length)] ?? "#fbcfe8",
-      };
-      setBalloons((prev) => [...prev, b]);
-      window.setTimeout(() => {
-        setBalloons((prev) => prev.filter((p) => p.id !== b.id));
-      }, b.duration * 1000);
-    }, 620);
+    createBalloon();
+    const id = setInterval(createBalloon, 420);
     return () => clearInterval(id);
   }, [running]);
 
@@ -72,39 +75,36 @@ export function BalloonGame({ onWin }: { onWin: () => void }) {
       </div>
 
       <div className="relative mt-4 h-64 overflow-hidden rounded-2xl bg-secondary/50 sm:h-72">
-        <AnimatePresence>
-          {balloons.map((b) => (
-            <motion.button
-              key={b.id}
-              initial={{ y: 280, opacity: 0 }}
-              animate={{ y: -80, opacity: 1, x: [0, 12, -12, 0] }}
-              exit={{ scale: 1.6, opacity: 0 }}
-              transition={{ duration: b.duration, ease: "linear" }}
-              style={{ left: `${b.x}%` }}
-              onClick={() => {
-                setBalloons((prev) => prev.filter((p) => p.id !== b.id));
-                setScore((s) => s + 1);
-              }}
-              aria-label="Balonu patlat"
-              className="absolute bottom-0"
+        {balloons.map((b) => (
+          <motion.button
+            key={b.id}
+            initial={{ y: 28, opacity: 0 }}
+            animate={{ y: -360, opacity: [0, 1, 1], x: [0, 14, -10, 8, 0] }}
+            transition={{ duration: b.duration, ease: "linear" }}
+            style={{ left: `${b.x}%` }}
+            onClick={() => {
+              setBalloons((prev) => prev.filter((p) => p.id !== b.id));
+              setScore((s) => s + 1);
+            }}
+            aria-label="Balonu patlat"
+            className="absolute top-full"
+          >
+            <span
+              className="relative block rounded-full drop-shadow-md"
+              style={{ width: b.size, height: b.size * 1.2, backgroundColor: b.color }}
             >
+              <span className="absolute left-1/4 top-1/5 h-2 w-2 rounded-full bg-white/60" />
               <span
-                className="relative block rounded-full drop-shadow-md"
-                style={{ width: b.size, height: b.size * 1.2, backgroundColor: b.color }}
-              >
-                <span className="absolute left-1/4 top-1/5 h-2 w-2 rounded-full bg-white/60" />
-                <span
-                  className="absolute left-1/2 top-full h-0 w-0 -translate-x-1/2"
-                  style={{
-                    borderLeft: "5px solid transparent",
-                    borderRight: "5px solid transparent",
-                    borderTop: `8px solid ${b.color}`,
-                  }}
-                />
-              </span>
-            </motion.button>
-          ))}
-        </AnimatePresence>
+                className="absolute left-1/2 top-full h-0 w-0 -translate-x-1/2"
+                style={{
+                  borderLeft: "5px solid transparent",
+                  borderRight: "5px solid transparent",
+                  borderTop: `8px solid ${b.color}`,
+                }}
+              />
+            </span>
+          </motion.button>
+        ))}
 
         {!running && (
           <div className="absolute inset-0 flex items-center justify-center">

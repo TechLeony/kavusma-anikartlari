@@ -11,18 +11,18 @@ export type Photo = {
 export const GALLERY_PHOTOS: Photo[] = [
   {
     id: "gallery-1",
-    url: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1200&q=80",
-    caption: "Birinci özel fotoğraf alanı.",
+    url: "/photos/gallery-1.jpeg",
+    caption: "Asigimm sanaa ❤️",
   },
   {
     id: "gallery-2",
-    url: "https://images.unsplash.com/photo-1494774157365-9e04c6720e47?auto=format&fit=crop&w=1200&q=80",
-    caption: "İkinci özel fotoğraf alanı.",
+    url: "/photos/gallery-2.jpeg",
+    caption: "I'll love u FOR EVER 💘",
   },
   {
     id: "gallery-3",
-    url: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1200&q=80",
-    caption: "Üçüncü özel fotoğraf alanı.",
+    url: "/photos/gallery-3.jpeg",
+    caption: "coook tatliyizz 🥰",
   },
 ];
 
@@ -99,17 +99,17 @@ export function Gallery() {
             >
               <button
                 onClick={() => setActive(photo)}
-                className="block w-full overflow-hidden"
+                className="block w-full overflow-hidden bg-secondary/50 p-3"
                 aria-label={`${photo.caption} büyüt`}
               >
                 <img
                   src={photo.url}
                   alt={photo.caption}
                   loading="lazy"
-                  className="aspect-4/5 w-full object-cover transition duration-500 hover:scale-105"
+                  className="aspect-4/5 w-full rounded-2xl object-contain transition duration-500 hover:scale-[1.02]"
                 />
               </button>
-              <figcaption className="flex items-start gap-2 p-4 text-sm text-muted-foreground">
+              <figcaption className="flex items-start gap-2 p-4 text-sm font-semibold text-rose-deep">
                 <Heart className="mt-0.5 h-4 w-4 shrink-0 fill-current text-rose-deep" />
                 <span>{photo.caption}</span>
               </figcaption>

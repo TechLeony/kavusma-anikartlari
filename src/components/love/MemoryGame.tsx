@@ -5,42 +5,42 @@ import { Heart, Image, RotateCcw } from "lucide-react";
 export const MEMORY_IMAGES = [
   {
     id: "memory-1",
-    src: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=600&q=80",
+    src: "/photos/memory-1.jpeg",
     alt: "Birinci hafıza fotoğrafı",
   },
   {
     id: "memory-2",
-    src: "https://images.unsplash.com/photo-1494774157365-9e04c6720e47?auto=format&fit=crop&w=600&q=80",
+    src: "/photos/memory-2.jpeg",
     alt: "İkinci hafıza fotoğrafı",
   },
   {
     id: "memory-3",
-    src: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80",
+    src: "/photos/memory-3.jpeg",
     alt: "Üçüncü hafıza fotoğrafı",
   },
   {
     id: "memory-4",
-    src: "https://images.unsplash.com/photo-1465495910306-9f5b1a3a0d9c?auto=format&fit=crop&w=600&q=80",
+    src: "/photos/memory-4.jpeg",
     alt: "Dördüncü hafıza fotoğrafı",
   },
   {
     id: "memory-5",
-    src: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=600&q=80",
+    src: "/photos/memory-5.jpeg",
     alt: "Beşinci hafıza fotoğrafı",
   },
   {
     id: "memory-6",
-    src: "https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?auto=format&fit=crop&w=600&q=80",
+    src: "/photos/memory-6.jpeg",
     alt: "Altıncı hafıza fotoğrafı",
   },
   {
     id: "memory-7",
-    src: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=600&q=80",
+    src: "/photos/memory-7.jpeg",
     alt: "Yedinci hafıza fotoğrafı",
   },
   {
     id: "memory-8",
-    src: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=600&q=80",
+    src: "/photos/memory-8.jpeg",
     alt: "Sekizinci hafıza fotoğrafı",
   },
 ];

@@ -86,8 +86,8 @@ function Index() {
 
   const onBalloonWin = useCallback(() => {
     setVictory({
-      title: "15 balon patladı!",
-      message: "Gelincee hazirlann da yemege cikalimm! 💋☕",
+      title: "iyeaahh",
+      message: "sana bir surprizim varrr gelince gorceksinnn ❤️",
     });
   }, []);
 
