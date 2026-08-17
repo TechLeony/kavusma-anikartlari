@@ -1,15 +1,15 @@
 import { AnimatePresence, motion } from "motion/react";
-import { PartyPopper, KeyRound, X } from "lucide-react";
+import { PartyPopper, X } from "lucide-react";
 
 export function VictoryDialog({
   open,
   title,
-  code,
+  message,
   onClose,
 }: {
   open: boolean;
   title: string;
-  code: string;
+  message: string;
   onClose: () => void;
 }) {
   return (
@@ -44,13 +44,9 @@ export function VictoryDialog({
               <PartyPopper className="h-8 w-8 text-rose-deep" />
             </motion.div>
             <h3 className="mt-4 text-xl font-semibold text-rose-deep">{title}</h3>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Gizli ipucun hazır. Fotoğraf galerisinde kullan.
+            <p className="mt-3 rounded-2xl bg-secondary px-4 py-3 text-base font-semibold text-rose-deep">
+              {message}
             </p>
-            <div className="mt-4 flex items-center justify-center gap-2 rounded-2xl bg-secondary px-4 py-3">
-              <KeyRound className="h-4 w-4 shrink-0 text-rose-deep" />
-              <span className="font-display text-lg font-bold tracking-wider text-rose-deep">{code}</span>
-            </div>
           </motion.div>
         </motion.div>
       )}

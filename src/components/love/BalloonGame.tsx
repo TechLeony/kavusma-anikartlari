@@ -1,10 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { Heart, Play } from "lucide-react";
+import { Play } from "lucide-react";
 
-type Balloon = { id: number; x: number; duration: number; size: number };
+type Balloon = { id: number; x: number; duration: number; size: number; color: string };
 
-const TARGET = 12;
+const TARGET = 15;
+const BALLOON_COLORS = [
+  "#f9a8d4",
+  "#fbcfe8",
+  "#c4b5fd",
+  "#bae6fd",
+  "#bbf7d0",
+  "#fde68a",
+  "#fecaca",
+];
 
 export function BalloonGame({ onWin }: { onWin: () => void }) {
   const [running, setRunning] = useState(false);
@@ -22,6 +31,7 @@ export function BalloonGame({ onWin }: { onWin: () => void }) {
         x: 6 + Math.random() * 82,
         duration: 3.6 + Math.random() * 2.4,
         size: 30 + Math.random() * 22,
+        color: BALLOON_COLORS[Math.floor(Math.random() * BALLOON_COLORS.length)] ?? "#fbcfe8",
       };
       setBalloons((prev) => [...prev, b]);
       window.setTimeout(() => {
@@ -51,9 +61,9 @@ export function BalloonGame({ onWin }: { onWin: () => void }) {
     <div className="glass-card rounded-3xl p-5 sm:p-6">
       <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex sm:justify-between">
         <div className="min-w-0">
-          <h3 className="truncate text-lg font-semibold text-rose-deep">Aşk Balonları</h3>
+          <h3 className="truncate text-lg font-semibold text-rose-deep">Bebisiminn balonlarıııı</h3>
           <p className="text-xs text-muted-foreground">
-            {TARGET} kalbi patlat, şifreyi kap.
+            Hadii {TARGET} balon patlat daa, hediyee kapp
           </p>
         </div>
         <span className="shrink-0 rounded-full bg-secondary px-3 py-2 text-xs font-semibold text-secondary-foreground">
@@ -75,10 +85,23 @@ export function BalloonGame({ onWin }: { onWin: () => void }) {
                 setBalloons((prev) => prev.filter((p) => p.id !== b.id));
                 setScore((s) => s + 1);
               }}
-              aria-label="Kalbi patlat"
-              className="absolute bottom-0 text-rose-deep"
+              aria-label="Balonu patlat"
+              className="absolute bottom-0"
             >
-              <Heart style={{ width: b.size, height: b.size }} className="fill-current drop-shadow" />
+              <span
+                className="relative block rounded-full drop-shadow-md"
+                style={{ width: b.size, height: b.size * 1.2, backgroundColor: b.color }}
+              >
+                <span className="absolute left-1/4 top-1/5 h-2 w-2 rounded-full bg-white/60" />
+                <span
+                  className="absolute left-1/2 top-full h-0 w-0 -translate-x-1/2"
+                  style={{
+                    borderLeft: "5px solid transparent",
+                    borderRight: "5px solid transparent",
+                    borderTop: `8px solid ${b.color}`,
+                  }}
+                />
+              </span>
             </motion.button>
           ))}
         </AnimatePresence>

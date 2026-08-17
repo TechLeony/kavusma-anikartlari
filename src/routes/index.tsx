@@ -1,16 +1,16 @@
 import { useCallback, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { Heart, Sparkles, Gamepad2, Images, Ticket } from "lucide-react";
+import { Heart, Sparkles, Gamepad2, Images } from "lucide-react";
 
 import { Countdown } from "@/components/love/Countdown";
 import { useHeartRain } from "@/components/love/HeartRain";
 import { MemoryGame } from "@/components/love/MemoryGame";
 import { BalloonGame } from "@/components/love/BalloonGame";
-import { Gallery, PHOTOS } from "@/components/love/Gallery";
+import { Gallery } from "@/components/love/Gallery";
 import { LoveLetter } from "@/components/love/LoveLetter";
-import { Coupons } from "@/components/love/Coupons";
 import { VictoryDialog } from "@/components/love/VictoryDialog";
+import { CharacterGrid } from "@/components/love/CharacterGrid";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -19,13 +19,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Derya ve Javanshir'in 15. ay yıl dönümü için hazırlanmış romantik sürpriz: geri sayım, mini oyunlar, kilitli fotoğraf galerisi, aşk mektubu ve dijital kuponlar.",
+          "Derya ve Javanshir'in 15. ay yıl dönümü için hazırlanmış romantik sürpriz: geri sayım, mini oyunlar, fotoğraf galerisi ve aşk mektubu.",
       },
       { property: "og:title", content: "15. Ayımız Kutlu Olsun — Derya & Javanshir" },
       {
         property: "og:description",
         content:
-          "Uzak mesafe aşkına özel interaktif sürpriz: geri sayım, oyunlar, gizli şifreli fotoğraflar ve sana özel mektup.",
+          "Uzak mesafe aşkına özel interaktif sürpriz: geri sayım, oyunlar, fotoğraflar ve sana özel mektup.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -79,18 +79,15 @@ function Section({
 
 function Index() {
   const { burst, overlay } = useHeartRain();
-  const [unlockedPhotos, setUnlockedPhotos] = useState<string[]>([]);
-  const [victory, setVictory] = useState<{ title: string; code: string } | null>(null);
+  const [victory, setVictory] = useState<{ title: string; message: string } | null>(null);
 
   const onMemoryWin = useCallback(() => {
-    setVictory({ title: "Tüm kalpleri eşleştirdin!", code: "15.05.2025" });
+    setVictory({ title: "Tüm fotoğrafları eşleştirdin!", message: "Hafızan da kalbin kadar güzel." });
   }, []);
 
   const onBalloonWin = useCallback(() => {
-    setVictory({ title: "Balonların hepsi senin!", code: "SONSUZUM" });
+    setVictory({ title: "15 balon patladı!", message: "Öpücük & Kahve Date Kazandın! 💋☕" });
   }, []);
-
-  const allUnlocked = unlockedPhotos.length === PHOTOS.length;
 
   return (
     <main className="min-h-screen overflow-x-hidden pb-16">
@@ -118,8 +115,7 @@ function Index() {
           transition={{ delay: 0.2 }}
           className="mx-auto mt-4 max-w-xl text-sm text-muted-foreground sm:text-base"
         >
-          Bu küçük dünya sadece bizim için: oyunlar oyna, şifreleri çöz, anıları aç ve sonunda
-          sana yazdığım mektubu oku.
+          Bu küçük dünya sadece bizim için: oyunlar oyna, anıları aç ve sana yazdığım mektubu oku.
         </motion.p>
 
         <motion.button
@@ -139,7 +135,7 @@ function Index() {
       <Section
         icon={Gamepad2}
         title="Mini Oyunlar"
-        subtitle="Her oyunu kazandığında gizli bir ipucu açılıyor."
+        subtitle="Dokun, oyna, gülümse ve küçük zaferleri topla."
       >
         <div className="grid gap-4 lg:grid-cols-2">
           <MemoryGame onWin={onMemoryWin} />
@@ -149,28 +145,19 @@ function Index() {
 
       <Section
         icon={Images}
-        title="Kilitli Fotoğraf Galerisi"
-        subtitle={`Açılan anı: ${unlockedPhotos.length}/${PHOTOS.length} — doğru şifreyi yaz ve kalıcı olarak aç.`}
+        title="Fotoğraf Galerisi"
+        subtitle="Şifresiz, yazısız; sadece sevgiyle açılan üç anı."
       >
-        <Gallery
-          unlocked={unlockedPhotos}
-          onUnlock={(id) =>
-            setUnlockedPhotos((prev) => (prev.includes(id) ? prev : [...prev, id]))
-          }
-        />
+        <Gallery />
       </Section>
 
       <Section icon={Sparkles} title="Sana Özel Mektup" subtitle="Kalbimden sana, harf harf.">
-        <LoveLetter unlocked={allUnlocked} />
+        <LoveLetter />
       </Section>
 
-      <Section
-        icon={Ticket}
-        title="Dijital Ödüller &amp; Kuponlar"
-        subtitle="İstediğin an kullan, hepsi senin hakkın."
-      >
-        <Coupons />
-      </Section>
+      <section className="mx-auto w-full max-w-5xl px-4 py-10 sm:py-14">
+        <CharacterGrid />
+      </section>
 
       <footer className="mx-auto max-w-5xl px-4 text-center text-xs text-muted-foreground">
         <p className="font-script text-lg text-rose-soft">Seni seviyorum, sonsuza kadar.</p>
@@ -180,7 +167,7 @@ function Index() {
       <VictoryDialog
         open={victory !== null}
         title={victory?.title ?? ""}
-        code={victory?.code ?? ""}
+        message={victory?.message ?? ""}
         onClose={() => setVictory(null)}
       />
     </main>

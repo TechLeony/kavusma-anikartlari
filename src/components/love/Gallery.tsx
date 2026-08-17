@@ -1,141 +1,122 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { Lock, LockOpen, X, Heart } from "lucide-react";
+import { Camera, Heart, Loader2, Sparkles, X } from "lucide-react";
 
 export type Photo = {
   id: string;
   url: string;
-  code: string;
-  hint: string;
   caption: string;
 };
 
-export const PHOTOS: Photo[] = [
+export const GALLERY_PHOTOS: Photo[] = [
   {
-    id: "p1",
+    id: "gallery-1",
     url: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1200&q=80",
-    code: "15.05.2025",
-    hint: "Hafıza Kartları ipucu (tarih)",
-    caption: "Her şeyin başladığı gün… O günden beri kalbim hep sende.",
+    caption: "Birinci özel fotoğraf alanı.",
   },
   {
-    id: "p2",
+    id: "gallery-2",
     url: "https://images.unsplash.com/photo-1494774157365-9e04c6720e47?auto=format&fit=crop&w=1200&q=80",
-    code: "SONSUZUM",
-    hint: "Aşk Balonları ipucu (kelime)",
-    caption: "Aramızdaki kilometreler var ama sen hep bir nefes kadar yakınsın.",
+    caption: "İkinci özel fotoğraf alanı.",
   },
   {
-    id: "p3",
+    id: "gallery-3",
     url: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1200&q=80",
-    code: "15.05.2025",
-    hint: "Hafıza Kartları ipucu (tarih)",
-    caption: "15 ay, 15 bin gülüş, sayısız 'iyi geceler aşkım'.",
-  },
-  {
-    id: "p4",
-    url: "https://images.unsplash.com/photo-1465495910306-9f5b1a3a0d9c?auto=format&fit=crop&w=1200&q=80",
-    code: "SONSUZUM",
-    hint: "Aşk Balonları ipucu (kelime)",
-    caption: "Bir gün aynı şehirde, aynı masada, aynı kahvenin başında olacağız.",
+    caption: "Üçüncü özel fotoğraf alanı.",
   },
 ];
 
-function normalize(value: string) {
-  return value.trim().toLocaleUpperCase("tr-TR");
-}
-
-export function Gallery({
-  unlocked,
-  onUnlock,
-}: {
-  unlocked: string[];
-  onUnlock: (id: string) => void;
-}) {
-  const [inputs, setInputs] = useState<Record<string, string>>({});
-  const [errors, setErrors] = useState<Record<string, boolean>>({});
+export function Gallery() {
+  const [loading, setLoading] = useState(false);
+  const [revealed, setRevealed] = useState(false);
   const [active, setActive] = useState<Photo | null>(null);
 
-  const tryUnlock = (photo: Photo) => {
-    const value = normalize(inputs[photo.id] ?? "");
-    if (value === normalize(photo.code)) {
-      onUnlock(photo.id);
-      setErrors((p) => ({ ...p, [photo.id]: false }));
-    } else {
-      setErrors((p) => ({ ...p, [photo.id]: true }));
-    }
+  const revealPhotos = () => {
+    if (loading || revealed) return;
+    setLoading(true);
+    window.setTimeout(() => {
+      setRevealed(true);
+      setLoading(false);
+    }, 1700);
   };
 
   return (
     <>
-      <div className="grid gap-4 sm:grid-cols-2">
-        {PHOTOS.map((photo, index) => {
-          const isOpen = unlocked.includes(photo.id);
-          return (
-            <motion.div
+      {!revealed ? (
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="glass-card mx-auto flex w-full max-w-2xl flex-col items-center rounded-3xl p-7 text-center"
+        >
+          <div className="gradient-romantic grid h-16 w-16 place-items-center rounded-2xl shadow-soft">
+            {loading ? (
+              <Loader2 className="h-7 w-7 animate-spin text-rose-deep" />
+            ) : (
+              <Camera className="h-7 w-7 text-rose-deep" />
+            )}
+          </div>
+          <h3 className="mt-4 text-xl font-semibold text-rose-deep">Bakk bakiimmm bizee</h3>
+          <AnimatePresence mode="wait">
+            {loading ? (
+              <motion.p
+                key="loading"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                className="mt-3 text-sm font-semibold text-rose-deep"
+              >
+                seni coookk seviyorumm asktanemm... ❤️
+              </motion.p>
+            ) : (
+              <motion.p
+                key="ready"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                className="mt-3 max-w-md text-sm text-muted-foreground"
+              >
+                nomm nommm nomm
+              </motion.p>
+            )}
+          </AnimatePresence>
+          <button
+            onClick={revealPhotos}
+            disabled={loading}
+            className="gradient-deep mt-5 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-primary-foreground shadow-glow transition hover:brightness-110 disabled:opacity-70"
+          >
+            <Sparkles className="h-4 w-4" /> Aççç
+          </button>
+        </motion.div>
+      ) : (
+        <div className="grid gap-4 sm:grid-cols-3">
+          {GALLERY_PHOTOS.map((photo, index) => (
+            <motion.figure
               key={photo.id}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.08 }}
+              initial={{ opacity: 0, y: 28, scale: 0.94 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ delay: index * 0.18, duration: 0.5 }}
               className="glass-card overflow-hidden rounded-3xl"
             >
-              <div className="relative aspect-4/3 overflow-hidden">
+              <button
+                onClick={() => setActive(photo)}
+                className="block w-full overflow-hidden"
+                aria-label={`${photo.caption} büyüt`}
+              >
                 <img
                   src={photo.url}
-                  alt={isOpen ? photo.caption : "Kilitli romantik anı fotoğrafı"}
+                  alt={photo.caption}
                   loading="lazy"
-                  onClick={() => isOpen && setActive(photo)}
-                  className={`h-full w-full object-cover transition duration-500 ${
-                    isOpen ? "cursor-pointer hover:scale-105" : "scale-105 blur-lg brightness-90"
-                  }`}
+                  className="aspect-4/5 w-full object-cover transition duration-500 hover:scale-105"
                 />
-                {!isOpen && (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-rose-deep/25 text-primary-foreground">
-                    <Lock className="h-8 w-8" />
-                    <p className="px-4 text-center text-xs font-semibold">{photo.hint}</p>
-                  </div>
-                )}
-                {isOpen && (
-                  <span className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-card/90 px-3 py-1 text-xs font-semibold text-rose-deep">
-                    <LockOpen className="h-3.5 w-3.5" /> Açıldı
-                  </span>
-                )}
-              </div>
-
-              <div className="p-4">
-                {isOpen ? (
-                  <p className="text-sm text-muted-foreground">{photo.caption}</p>
-                ) : (
-                  <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-2">
-                    <input
-                      value={inputs[photo.id] ?? ""}
-                      onChange={(e) => setInputs((p) => ({ ...p, [photo.id]: e.target.value }))}
-                      onKeyDown={(e) => e.key === "Enter" && tryUnlock(photo)}
-                      placeholder="Şifre / tarih gir…"
-                      aria-label="Gizli şifre"
-                      className={`min-w-0 rounded-full border bg-card px-4 py-2 text-sm outline-none transition focus:ring-2 focus:ring-ring ${
-                        errors[photo.id] ? "border-destructive" : "border-border"
-                      }`}
-                    />
-                    <button
-                      onClick={() => tryUnlock(photo)}
-                      className="gradient-deep shrink-0 rounded-full px-5 py-2 text-sm font-semibold text-primary-foreground transition hover:brightness-110"
-                    >
-                      Aç
-                    </button>
-                    {errors[photo.id] && (
-                      <p className="col-span-2 text-xs text-destructive">
-                        Olmadı aşkım, oyunlardan gelen ipucunu dene 💕
-                      </p>
-                    )}
-                  </div>
-                )}
-              </div>
-            </motion.div>
-          );
-        })}
-      </div>
+              </button>
+              <figcaption className="flex items-start gap-2 p-4 text-sm text-muted-foreground">
+                <Heart className="mt-0.5 h-4 w-4 shrink-0 fill-current text-rose-deep" />
+                <span>{photo.caption}</span>
+              </figcaption>
+            </motion.figure>
+          ))}
+        </div>
+      )}
 
       <AnimatePresence>
         {active && (
@@ -143,29 +124,25 @@ export function Gallery({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[70] flex items-center justify-center bg-rose-deep/80 p-4 backdrop-blur-sm"
+            className="fixed inset-0 z-[70] flex items-center justify-center bg-rose-deep/85 p-3 backdrop-blur-sm"
             onClick={() => setActive(null)}
           >
-            <motion.figure
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-3xl overflow-hidden rounded-3xl bg-card shadow-glow"
+            <button
+              onClick={() => setActive(null)}
+              aria-label="Kapat"
+              className="absolute right-4 top-4 z-20 grid h-11 w-11 place-items-center rounded-full bg-card text-rose-deep shadow-soft"
             >
-              <button
-                onClick={() => setActive(null)}
-                aria-label="Kapat"
-                className="absolute right-3 top-3 z-10 grid h-11 w-11 place-items-center rounded-full bg-card/90 text-rose-deep shadow-soft transition hover:bg-accent"
-              >
-                <X className="h-5 w-5" />
-              </button>
-              <img src={active.url} alt={active.caption} className="max-h-[70vh] w-full object-cover" />
-              <figcaption className="flex items-start gap-2 p-5 text-sm text-muted-foreground">
-                <Heart className="mt-0.5 h-4 w-4 shrink-0 fill-current text-rose-deep" />
-                <span>{active.caption}</span>
-              </figcaption>
-            </motion.figure>
+              <X className="h-6 w-6" />
+            </button>
+            <motion.img
+              initial={{ scale: 0.92, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.92, opacity: 0 }}
+              src={active.url}
+              alt={active.caption}
+              onClick={(e) => e.stopPropagation()}
+              className="max-h-[88vh] w-full max-w-4xl rounded-3xl object-contain shadow-glow"
+            />
           </motion.div>
         )}
       </AnimatePresence>

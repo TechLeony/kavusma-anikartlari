@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { Plane } from "lucide-react";
 
-const REUNION_DATE = new Date("2026-09-15T18:00:00+03:00");
+const REUNION_DATE = new Date("2026-08-20T00:00:00+04:00");
 
 function diff(target: Date) {
   const ms = Math.max(0, target.getTime() - Date.now());
@@ -46,14 +46,11 @@ export function Countdown() {
     >
       <div className="mb-4 flex items-center justify-center gap-2 text-rose-deep">
         <Plane className="h-5 w-5 shrink-0" />
-        <h2 className="text-lg font-semibold sm:text-xl">Kavuşmamıza Kalan Süre</h2>
+        <h2 className="text-lg font-semibold sm:text-xl">Kavuşmamıza Kalan Süreee</h2>
       </div>
       <div className="grid grid-cols-4 gap-2 sm:gap-3">
         {items.map(([label, value]) => (
-          <div
-            key={label}
-            className="rounded-2xl bg-secondary/70 px-1 py-3 text-center sm:py-4"
-          >
+          <div key={label} className="rounded-2xl bg-secondary/70 px-1 py-3 text-center sm:py-4">
             <motion.p
               key={`${label}-${value}`}
               initial={{ scale: 0.8, opacity: 0.4 }}
@@ -69,7 +66,7 @@ export function Countdown() {
         ))}
       </div>
       <p className="mt-4 text-center text-sm text-muted-foreground">
-        Her saniye, sarılmamıza bir adım daha yakın 💌
+        Azcikk kaldii kii, gelcenn kiii 💌
       </p>
     </motion.div>
   );
