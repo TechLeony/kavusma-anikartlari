@@ -96,8 +96,7 @@ export function MemoryGame({ onWin }: { onWin: () => void }) {
     <div className="glass-card rounded-3xl p-5 sm:p-6">
       <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex sm:justify-between">
         <div className="min-w-0">
-          <h3 className="truncate text-lg font-semibold text-rose-deep">Hafıza Kartları</h3>
-          <p className="text-xs text-muted-foreground">4x4 kartlarda 8 fotoğraf çiftini bul.</p>
+          <h3 className="truncate text-lg font-semibold text-rose-deep">Eslestirrr bizii</h3>
         </div>
         <button
           onClick={reset}

@@ -15,11 +15,10 @@ import { CharacterGrid } from "@/components/love/CharacterGrid";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "15. Ayımız Kutlu Olsun — Derya & Javanshir" },
+      { title: "15. ayımız kutlu olsunnn baltanemmm" },
       {
         name: "description",
-        content:
-          "Derya ve Javanshir'in 15. ay yıl dönümü için hazırlanmış romantik sürpriz: geri sayım, mini oyunlar, fotoğraf galerisi ve aşk mektubu.",
+        content: "Derya ve Javanshir'in 15. ay yıl dönümü için hazırlanmış romantik sürpriz",
       },
       { property: "og:title", content: "15. Ayımız Kutlu Olsun — Derya & Javanshir" },
       {
@@ -82,11 +81,14 @@ function Index() {
   const [victory, setVictory] = useState<{ title: string; message: string } | null>(null);
 
   const onMemoryWin = useCallback(() => {
-    setVictory({ title: "Tüm fotoğrafları eşleştirdin!", message: "Hafızan da kalbin kadar güzel." });
+    setVictory({ title: "Hepsiniii cozduuu", message: "Aferinnn benimmm akilli kizimaa" });
   }, []);
 
   const onBalloonWin = useCallback(() => {
-    setVictory({ title: "15 balon patladı!", message: "Öpücük & Kahve Date Kazandın! 💋☕" });
+    setVictory({
+      title: "15 balon patladı!",
+      message: "Gelincee hazirlann da yemege cikalimm! 💋☕",
+    });
   }, []);
 
   return (
@@ -99,7 +101,7 @@ function Index() {
           animate={{ opacity: 1, y: 0 }}
           className="font-script text-2xl text-rose-soft sm:text-3xl"
         >
-          Uzak ama hep yanında
+          Hep yanindayimm kii ben seninnn bak ordaa kalbninn icinde oggg
         </motion.p>
         <motion.h1
           initial={{ opacity: 0, scale: 0.95 }}
@@ -107,16 +109,8 @@ function Index() {
           transition={{ duration: 0.7 }}
           className="text-gradient-rose mx-auto mt-3 max-w-3xl text-3xl leading-tight font-bold sm:text-5xl"
         >
-          15. Ayımız Kutlu Olsun, Derya &amp; Javanshir! ❤️
+          15. ayımız kutluu olsunn prensesimmm ❤️❤️❤️
         </motion.h1>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="mx-auto mt-4 max-w-xl text-sm text-muted-foreground sm:text-base"
-        >
-          Bu küçük dünya sadece bizim için: oyunlar oyna, anıları aç ve sana yazdığım mektubu oku.
-        </motion.p>
 
         <motion.button
           whileHover={{ scale: 1.05 }}
@@ -124,7 +118,7 @@ function Index() {
           onClick={burst}
           className="gradient-deep mt-7 inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-glow sm:text-base"
         >
-          <Heart className="h-5 w-5 fill-current" /> Seni Çok Özledim
+          <Heart className="h-5 w-5 fill-current" /> Sihirliii butonn
         </motion.button>
 
         <div className="mt-10">
@@ -132,26 +126,18 @@ function Index() {
         </div>
       </header>
 
-      <Section
-        icon={Gamepad2}
-        title="Mini Oyunlar"
-        subtitle="Dokun, oyna, gülümse ve küçük zaferleri topla."
-      >
+      <Section icon={Gamepad2} title="Oyuncuu seniii" subtitle="Eglensinn bakimmm guzelimmm">
         <div className="grid gap-4 lg:grid-cols-2">
           <MemoryGame onWin={onMemoryWin} />
           <BalloonGame onWin={onBalloonWin} />
         </div>
       </Section>
 
-      <Section
-        icon={Images}
-        title="Fotoğraf Galerisi"
-        subtitle="Şifresiz, yazısız; sadece sevgiyle açılan üç anı."
-      >
+      <Section icon={Images} title="Fotiklerimizzz" subtitle="">
         <Gallery />
       </Section>
 
-      <Section icon={Sparkles} title="Sana Özel Mektup" subtitle="Kalbimden sana, harf harf.">
+      <Section icon={Sparkles} title="Ball kizimaa" subtitle="Agzinii yuzunuu yerimm seninn😘😘">
         <LoveLetter />
       </Section>
 
@@ -160,8 +146,10 @@ function Index() {
       </section>
 
       <footer className="mx-auto max-w-5xl px-4 text-center text-xs text-muted-foreground">
-        <p className="font-script text-lg text-rose-soft">Seni seviyorum, sonsuza kadar.</p>
-        <p className="mt-1">15 ay ve daha binlercesi… D &amp; J</p>
+        <p className="font-script text-lg text-rose-soft">
+          Seni cook ama cookk seviyorummm, sonsuza kadarrr
+        </p>
+        <p className="mt-1">Insallah bissuruuu ay yill donumlerimizii kutlicazz kii D &amp; J</p>
       </footer>
 
       <VictoryDialog
