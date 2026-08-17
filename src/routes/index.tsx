@@ -11,6 +11,7 @@ import { Gallery } from "@/components/love/Gallery";
 import { LoveLetter } from "@/components/love/LoveLetter";
 import { VictoryDialog } from "@/components/love/VictoryDialog";
 import { CharacterGrid } from "@/components/love/CharacterGrid";
+import { PasscodeGate } from "@/components/love/PasscodeGate";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -92,72 +93,74 @@ function Index() {
   }, []);
 
   return (
-    <main className="min-h-screen overflow-x-hidden pb-16">
-      {overlay}
+    <PasscodeGate>
+      <main className="min-h-screen overflow-x-hidden pb-16">
+        {overlay}
 
-      <header className="relative mx-auto w-full max-w-5xl px-4 pt-14 text-center sm:pt-20">
-        <motion.p
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="font-script text-2xl text-rose-soft sm:text-3xl"
-        >
-          Hep yanindayimm kii ben seninnn bak ordaa kalbninn icinde oggg
-        </motion.p>
-        <motion.h1
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7 }}
-          className="text-gradient-rose mx-auto mt-3 max-w-3xl text-3xl leading-tight font-bold sm:text-5xl"
-        >
-          15. ayımız kutluu olsunn prensesimmm ❤️❤️❤️
-        </motion.h1>
+        <header className="relative mx-auto w-full max-w-5xl px-4 pt-14 text-center sm:pt-20">
+          <motion.p
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="font-script text-2xl text-rose-soft sm:text-3xl"
+          >
+            Hep yanindayimm kii ben seninnn bak ordaa kalbninn icinde oggg
+          </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7 }}
+            className="text-gradient-rose mx-auto mt-3 max-w-3xl text-3xl leading-tight font-bold sm:text-5xl"
+          >
+            15. ayımız kutluu olsunn prensesimmm ❤️❤️❤️
+          </motion.h1>
 
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={burst}
-          className="gradient-deep mt-7 inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-glow sm:text-base"
-        >
-          <Heart className="h-5 w-5 fill-current" /> Sihirliii butonn
-        </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={burst}
+            className="gradient-deep mt-7 inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-glow sm:text-base"
+          >
+            <Heart className="h-5 w-5 fill-current" /> Sihirliii butonn
+          </motion.button>
 
-        <div className="mt-10">
-          <Countdown />
-        </div>
-      </header>
+          <div className="mt-10">
+            <Countdown />
+          </div>
+        </header>
 
-      <Section icon={Gamepad2} title="Oyuncuu seniii" subtitle="Eglensinn bakimmm guzelimmm">
-        <div className="grid gap-4 lg:grid-cols-2">
-          <MemoryGame onWin={onMemoryWin} />
-          <BalloonGame onWin={onBalloonWin} />
-        </div>
-      </Section>
+        <Section icon={Gamepad2} title="Oyuncuu seniii" subtitle="Eglensinn bakimmm guzelimmm">
+          <div className="grid gap-4 lg:grid-cols-2">
+            <MemoryGame onWin={onMemoryWin} />
+            <BalloonGame onWin={onBalloonWin} />
+          </div>
+        </Section>
 
-      <Section icon={Images} title="Fotiklerimizzz" subtitle="">
-        <Gallery />
-      </Section>
+        <Section icon={Images} title="Fotiklerimizzz" subtitle="">
+          <Gallery />
+        </Section>
 
-      <Section icon={Sparkles} title="Ball kizimaa" subtitle="Agzinii yuzunuu yerimm seninn😘😘">
-        <LoveLetter />
-      </Section>
+        <Section icon={Sparkles} title="Ball kizimaa" subtitle="Agzinii yuzunuu yerimm seninn😘😘">
+          <LoveLetter />
+        </Section>
 
-      <section className="mx-auto w-full max-w-5xl px-4 py-10 sm:py-14">
-        <CharacterGrid />
-      </section>
+        <section className="mx-auto w-full max-w-5xl px-4 py-10 sm:py-14">
+          <CharacterGrid />
+        </section>
 
-      <footer className="mx-auto max-w-5xl px-4 text-center text-xs text-muted-foreground">
-        <p className="font-script text-lg text-rose-soft">
-          Seni cook ama cookk seviyorummm, sonsuza kadarrr
-        </p>
-        <p className="mt-1">Insallah bissuruuu ay yill donumlerimizii kutlicazz kii D &amp; J</p>
-      </footer>
+        <footer className="mx-auto max-w-5xl px-4 text-center text-xs text-muted-foreground">
+          <p className="font-script text-lg text-rose-soft">
+            Seni cook ama cookk seviyorummm, sonsuza kadarrr
+          </p>
+          <p className="mt-1">Insallah bissuruuu ay yill donumlerimizii kutlicazz kii D &amp; J</p>
+        </footer>
 
-      <VictoryDialog
-        open={victory !== null}
-        title={victory?.title ?? ""}
-        message={victory?.message ?? ""}
-        onClose={() => setVictory(null)}
-      />
-    </main>
+        <VictoryDialog
+          open={victory !== null}
+          title={victory?.title ?? ""}
+          message={victory?.message ?? ""}
+          onClose={() => setVictory(null)}
+        />
+      </main>
+    </PasscodeGate>
   );
 }
